@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin:0;
+        padding:0;
+      }
+      ul {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        list-style:none;
+      }
+      li {
+        width: 250px;
+        margin-top: 10px;
+        position: relative;
+        border:1px solid gray;
+  
+      }
+      .clearfix:after{
+        content: '';
+        display: table;
+        clear: both;
+      }
+      #wrap{
+        width: 1050px;
+        /*border:1px solid gray;*/
+        margin: 0 auto;
+        margin-top: 10px;
+      }
+    </style>
+    <script type="text/javascript">
+        function randFn(min,max){
+          return parseInt(Math.random() * (max - min) + min);
+        }
+        function clientHeight(){
+          return window.innerHTML || document.documentElement.clientHeight;
+        }
+        function scrollHeight(){
+          return document.body.scrollTop || document.documentElement.scrollTop;
+        }
+
+        window.onscroll = function(){
+          var height = clientHeight() + scrollHeight();
+          if (height >= document.body.offsetHeight) {
+            createLiTag(20);
+          }
+        }
+        window.onload = function(){
+            createLiTag(20);
+        }
+        function createLiTag(n){
+          for (var i = 0; i < n; i++) {
+            var h = randFn(300,500);
+            var createLi = (function (){
+              var uls = document.querySelectorAll('ul');
+              var imgTag = new Image();
+              imgTag.onload = function(){
+                img.src = this.src;
+                img.style.width='250px';
+                img.style.height = li.style.height;
+                img.style.position = 'none';
+                img.style.top = '0';
+                img.style.left = '0';
+                img.style.marginLeft = '0';
+                img.style.marginTop = '0px';
+              };
+              var minHeight = uls[0];
+              var li = document.createElement('li');
+              li.style.height = h + 'px';
+              var img = document.createElement('img');
+              img.style.width = '32px';
+              img.style.height = '32px';
+              img.style.position = 'absolute';
+              img.style.top = '50%';
+              img.style.left = '50%';
+              img.style.marginLeft = '-16px';
+              img.style.marginTop = '-16px';
+              li.appendChild(img);
+              for (var j = 0; j < uls.length; j++) {
+                if (minHeight.offsetHeight > uls[j].offsetHeight) {
+                  minHeight = uls[j];
+                }
+              }
+              minHeight.appendChild(li);
+              return {
+                src : function(src){
+                img.src = 'http://ww1.sinaimg.cn/mw1024/64eeab82gw1f9bjahlklaj203k03kmwy.jpg';
+                imgTag.src = src;
+                }
+              }
+            })();
+            createLi.src('https://unsplash.it/250/'+ h +'/?random');
+          }
+        }
+
+    </script>
+  </head>
+  <body>
+    <div id="wrap" class="clearfix">
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+    </div>
+  </body>
+</html>
